@@ -31,18 +31,7 @@ public class KafkaListeners {
             ObjectMapper mapper = new ObjectMapper();
             String jsonObject = mapper.writeValueAsString(data);
             LOGGER.info("jsonObject" + jsonObject);
-            JSONObject mJSONObject = new JSONObject(jsonObject).getJSONObject("EntityResponse");
-            LOGGER.info("mJSONObject" + mJSONObject);
 
-
-
-//            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-//            String json = ow.writeValueAsString("{" + data + "}");
-//            LOGGER.info("JSON DATA " + json);
-//            JSONObject accResponse = new JSONObject("{ :" + json.trim() + " } ").getJSONObject("Department");
-//            LOGGER.info("Final JSON " + accResponse);
-////            JSONObject accEntityData = json.accResponse("Department");
-//            LOGGER.info("JSON ID" + accResponse.get("id"));
             final StreamsBuilder builder = new StreamsBuilder();
             KStream<String, String> source = builder.stream("departments");
             source.to("streams-pipe-output");
