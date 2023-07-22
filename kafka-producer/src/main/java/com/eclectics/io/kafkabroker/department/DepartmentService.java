@@ -27,7 +27,6 @@ public class DepartmentService {
     public EntityResponse create(Department department) {
         try {
             EntityResponse response = new EntityResponse();
-
             String prefixCharacters = "DEP";
             String remainingFourDigits = "";
             Optional<DepartmentRepository.getDepartmentData> departmentData = departmentRepository.findDepartment();
@@ -55,9 +54,7 @@ public class DepartmentService {
             response.setStatusCode(HttpStatus.CREATED.value());
             response.setEntity(addNew);
 
-            kafkaTemplate.send("departments", String.valueOf(response));
-            LOGGER.info("DEPARTMENT NAME " + addNew);
-
+            kafkaTemplate.send("departments", String.valueOf(addNew));
             return response;
         } catch (Exception e) {
             log.info("Caught Error " + e);
